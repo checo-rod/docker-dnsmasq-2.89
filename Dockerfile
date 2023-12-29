@@ -1,16 +1,11 @@
 FROM alpine:3.18
-LABEL maintainer="Bill Clark <36345117+brav0charlie@users.noreply.github.com>"
-LABEL github_url="https://github.com/brav0charlie/docker-dnsmasq"
-LABEL org.opencontainers.image.source https://github.com/brav0charlie/docker-dnsmasq
-LABEL org.opencontainers.image.description "A dnsmasq Docker container"
 
-# Install dnsmasq
-RUN apk --no-cache add dnsmasq=2.89-r5 openjdk17
+RUN apk --no-cache add dnsmasq=2.89-r5 openjdk17 bind-tools
 
-# Expose ports: 53/tcp (DNS), 67/udp & 68/udp (DHCP)
-EXPOSE 53/udp
-EXPOSE 67/udp
-EXPOSE 68/udp
+COPY entrypoint.sh /opt/entrypoint.sh
+
+RUN chmod 755 /opt/entrypoint.sh
 
 # Start dnsmasq, write log items to container console
-ENTRYPOINT ["dnsmasq", "-k"]
+ENTRYPOINT ["/opt/entrypoint.sh"]
+~
