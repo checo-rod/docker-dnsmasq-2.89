@@ -1,6 +1,6 @@
 FROM alpine:3.18
 
-RUN apk --no-cache add dnsmasq=2.89-r5 openjdk17 bind-tools
+RUN apk --no-cache add dnsmasq=2.89-r5 openjdk17 bind-tools curl
 
 COPY entrypoint.sh /opt/entrypoint.sh
 
